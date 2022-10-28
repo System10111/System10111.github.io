@@ -1,8 +1,11 @@
+import init, * as tol from './r-tol/r_tol.js';
+
 import './App.css';
 import Showcase from './Showcase.js';
 import AboutMe from './AboutMe.js';
 
 import logo from './logo.svg';
+
 
 function Header() {
   return (
@@ -14,6 +17,7 @@ function Header() {
         <h3 className="header-small-text">a cool link</h3>
         <h3 className="header-small-text">another cool link</h3>
         <h3 className="header-small-text">a third cool link</h3>
+        <a href='/tol'>tol</a>
       </div>
     </header>
   );
@@ -97,7 +101,8 @@ function Langs() {
   );
 }
 
-function App() {
+
+function MainPage() {
   return (
     <div className="App">
       <Header />
@@ -128,6 +133,60 @@ function App() {
       </div>
     </div>
   );
+}
+
+
+function TolPage() {
+  return (
+    <div className="App">
+      <Header />
+      <div>
+        <textarea name="setup" id="setup" cols="50" rows="10"></textarea>
+        <br />
+        <input type="text" id="prompt"></input>
+        <br />
+        <button id="submit" onClick={function() {
+          let res = tol.tol_eval("5 + 5");
+          document.getElementById("output").innerHTML = res;
+        }}>Submit</button> 
+        <br />
+        <p id="output"></p>
+      </div>
+      <div className="App-placeholder">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p> 
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </div>
+    </div>
+  );
+}
+
+async function run() {
+  await init();
+}
+
+
+function App() {
+  let path = window.location.pathname;
+  if (path === "/tol") {
+    run();
+    return (
+      <TolPage />
+    )
+  } else {
+    return (
+      <MainPage />
+    );
+  }
 }
 
 export default App;

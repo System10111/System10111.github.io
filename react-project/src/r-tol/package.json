@@ -1,0 +1,12 @@
+{
+  "name": "r-tol",
+  "version": "0.1.0",
+  "files": [
+    "r_tol_bg.wasm",
+    "r_tol.js",
+    "r_tol.d.ts"
+  ],
+  "module": "r_tol.js",
+  "types": "r_tol.d.ts",
+  "sideEffects": false
+}
