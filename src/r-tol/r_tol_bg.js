@@ -88,12 +88,12 @@ function getStringFromWasm0(ptr, len) {
 * @param {string} input
 * @returns {string}
 */
-export function tol_do_things(input) {
+export function tol_eval(input) {
     try {
         const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
         const ptr0 = passStringToWasm0(input, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len0 = WASM_VECTOR_LEN;
-        wasm.tol_do_things(retptr, ptr0, len0);
+        wasm.tol_eval(retptr, ptr0, len0);
         var r0 = getInt32Memory0()[retptr / 4 + 0];
         var r1 = getInt32Memory0()[retptr / 4 + 1];
         return getStringFromWasm0(r0, r1);
