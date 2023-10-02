@@ -1,24 +1,30 @@
-import init, * as tol from './r-tol/r_tol.js';
-
 import './App.css';
 import Showcase from './Showcase.js';
 import AboutMe from './AboutMe.js';
+import TolPage, { init_tol } from './TolPage';
 
 import logo from './logo.svg';
 import React from 'react';
+
+import langs from './content/langs.json'
 
 
 function Header() {
   return (
     <header className="header">
       <div className="header-left"> 
-        <h1 className="header-text">My Cool Site</h1>
+        <h1 className="header-text" 
+        onClick={
+          () => {window.location.href = '/';}
+        }
+        style={{cursor: 'pointer'}}
+        >Kristian R</h1>
       </div>
       <div className="header-right">
         <h3 className="header-small-text">a cool link</h3>
         <h3 className="header-small-text">another cool link</h3>
         <h3 className="header-small-text">a third cool link</h3>
-        <a href='/tol'>tol</a>
+        <a href='/tol'>ToL</a>
       </div>
     </header>
   );
@@ -77,27 +83,196 @@ function Transition(props) {
 }
 
 function Langs() {
-  return (
+  // return (
+  //   <div className="langs-section">
+  //     {
+  //       ["x86 Assembly" ,"C", "C++", "Rust", "Haskell", "C#", "Java", "Python", "JavaScript", 
+  //         "ReactJS", "PHP", "Lua", "SQL"].map((lang, id) => {
+  //           let phi = 2 * Math.PI * id / 13;
+  //           let len = Math.random() * 30 + 10;
+  //           let [x, y] = [Math.cos(phi) * len, Math.sin(phi) * len];
+  //           let scale = Math.random() * 0.5 + 0.5;
+  //           return (
+  //             <h3 key={id}
+  //               style={{
+  //                 left: `${50+x}%`,
+  //                 top: `${50+y}%`,
+  //                 scale: `${100*scale}%`,
+  //                 opacity: Math.max(1.7-scale, 0.5),
+  //               }}
+  //             >{lang}</h3>
+  //           );
+  //       })
+  //     }
+  //   </div>
+  // );
+
+  const radius_base = 20;
+
+  // create a canvas
+  const canvasRef = React.useRef(null);
+  const [selected_lang, set_selected_lang] = React.useState("");
+  const [lang_spheres, set_lang_spheres] = React.useState(
+    Object.entries(langs).map( ([lang, data], id) => 
+    [lang, data["scale"], 1.0 - 2 * Math.random(), 1.0 - 2 * Math.random()] 
+  )); // [lang, cur_scale, x, y]
+
+  React.useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+
+    setInterval(() => {
+      // clear canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      let next_lang_spheres = [...lang_spheres];
+
+      let [width, height] = [canvas.width, canvas.height];
+
+      // move spheres so they don't overlap, but stay near the center
+      for(let i = 0; i < lang_spheres.length; i++) {
+        let l1 = lang_spheres[i];
+        let l1_rad = radius_base * langs[l1[0]]["radius"] * l1[1];
+
+        // move away from overlapping spheres
+        for(let j = i+1; j < lang_spheres.length; j++) {
+          let l2 = lang_spheres[j];
+          let l2_rad = radius_base * langs[l2[0]]["radius"] * l2[1];
+          let dx = l1[2] - l2[2];
+          let dy = l1[3] - l2[3];
+          let dist_sqr = dx*dx + dy*dy;
+          let rad_sum = l1_rad + l2_rad;
+          if (dist_sqr < rad_sum*rad_sum) {
+            let dist = Math.sqrt(dist_sqr);
+            let overlap = rad_sum - dist;
+            let dx_norm = dx / dist;
+            let dy_norm = dy / dist;
+            const speed = 0.1;
+            next_lang_spheres[i][2] += dx_norm * overlap * speed / 2;
+            next_lang_spheres[i][3] += dy_norm * overlap * speed / 2;
+            next_lang_spheres[j][2] -= dx_norm * overlap * speed / 2;
+            next_lang_spheres[j][3] -= dy_norm * overlap * speed / 2;
+          }
+
+          // draw line between every pair of spheres
+          context.beginPath();
+          context.moveTo(l1[2] + width/2, l1[3] + height/2);
+          context.lineTo(l2[2] + width/2, l2[3] + height/2);
+          context.strokeStyle = "rgba(255,255,255,0.5)";
+          context.stroke();
+        }
+        const wall_push_speed = 5.0;
+        // move away from walls
+        if(l1[3] < -height/2 + l1_rad) {
+          next_lang_spheres[i][3] = Math.min(next_lang_spheres[i][3] + wall_push_speed, -height/2 + l1_rad);
+        }
+        if(l1[3] > height/2 - l1_rad) {
+          next_lang_spheres[i][3] = Math.max(next_lang_spheres[i][3] - wall_push_speed, height/2 - l1_rad);
+        }
+        if(l1[2] < -width/2 + l1_rad) {
+          next_lang_spheres[i][2] = Math.min(next_lang_spheres[i][2] + wall_push_speed, -width/2 + l1_rad);
+        }
+        if(l1[2] > width/2 - l1_rad) {
+          next_lang_spheres[i][2] = Math.max(next_lang_spheres[i][2] - wall_push_speed, width/2 - l1_rad);
+        }
+
+        const attract_speed = 0.5;
+        // move towards center
+        let dx = -l1[2];
+        let dy = -l1[3];
+        let dist = Math.sqrt(dx*dx + dy*dy);
+        let dx_norm = dx / dist;
+        let dy_norm = dy / dist;
+        next_lang_spheres[i][2] += dx_norm * attract_speed;
+        next_lang_spheres[i][3] += dy_norm * attract_speed;
+
+
+        // draw the sphere for debug purposes
+        // context.beginPath();
+        // context.arc(l1[2]+ width/2, l1[3] + height/2, l1_rad, 0, 2 * Math.PI);
+        // context.strokeStyle = "rgba(0,0,0,1.0)";
+        // context.stroke();
+      }
+
+      set_lang_spheres(next_lang_spheres);
+    }, 1000/10);
+
+    const handleResize = e => {
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+    };
+
+    
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    const observer = new ResizeObserver(entries => {
+      for (let entry of entries) {
+        const cr = entry.contentRect;
+        canvas.width = cr.width;
+      }
+    });
+    observer.observe(document.querySelector(".langs-canvas-holder"));
+
+    const width = canvas.width;
+    const height = canvas.height;
+    
+    // draw a line on the canvas as a test
+    context.beginPath();
+    context.moveTo(0, 0);
+    context.lineTo(width, height);
+    context.stroke();
+
+    // we only want to run this once when the canvas loads
+    // eslint-disable-next-line react-hooks/exhaustive-deps 
+  }, []);
+
+  return ( 
     <div className="langs-section">
-      {
-        ["x86 Assembly" ,"C", "C++", "Rust", "Haskell", "C#", "Java", "Python", "JavaScript", 
-          "ReactJS", "PHP", "Lua", "SQL"].map((lang, id) => {
-            let phi = 2 * Math.PI * id / 13;
-            let len = Math.random() * 30 + 10;
-            let [x, y] = [Math.cos(phi) * len, Math.sin(phi) * len];
-            let scale = Math.random() * 0.5 + 0.5;
-            return (
-              <h3 key={id}
-                style={{
-                  left: `${50+x}%`,
-                  top: `${50+y}%`,
-                  scale: `${100*scale}%`,
-                  opacity: Math.max(1.7-scale, 0.5),
-                }}
-              >{lang}</h3>
-            );
+      <div className="langs-canvas-holder">
+        <canvas ref={canvasRef} width="1280" height="720" 
+          onMouseMove= {e => { 
+            // console.log(e.clientX, e.clientY);
+            let new_lang_spheres = [...lang_spheres];
+            for(let i = 0; i < new_lang_spheres.length; i++) {
+              let l = lang_spheres[i];
+              let dx = e.clientX - l[2] - canvasRef.current.width/2;
+              let dy = e.clientY - l[3] - canvasRef.current.height/2;
+              let dist_sqr = dx*dx + dy*dy;
+              let dist = Math.sqrt(dist_sqr);
+              let scale_factor = 1 + 1/(1+Math.exp((dist-100)/100)); // scaled and shifted sigmoid
+              new_lang_spheres[i][1] = langs[l[0]]["scale"] * scale_factor;
+            }
+          }}
+        />
+        {
+        // the text for the languages
+        lang_spheres.map( ([lang, cur_scale, x, y]) => {
+          let [width, height] = canvasRef.current ? [canvasRef.current.width, canvasRef.current.height] : [1280, 720];
+          return (
+            <h3 
+              key={lang}
+              style={{
+                left: `${x + width/2}px`,
+                top: `calc(${y*100/height + 50}% - 5vh)`,
+                scale: `${100}%`,
+                opacity: Math.max(1.0, 0.5),
+                fontSize: `${0.8 * cur_scale}em`,
+                color: `${selected_lang === lang ? "var(--accent-color)" : "var(--text-color)"}`,	
+              }}
+              onClick={() => {
+                if(selected_lang === lang) {
+                  set_selected_lang("");
+                } else {
+                  set_selected_lang(lang);
+                }
+              }}
+            >{lang}</h3>
+          );
         })
       }
+      </div>
+      <div className="langs-info">
+      </div>
     </div>
   );
 }
@@ -136,267 +311,11 @@ function MainPage() {
   );
 }
 
-function tol_syntax_highlight(text) {
-  const keywords = [
-    "match",
-    "struct",
-    "variant",
-    "if",
-    "else",
-    "let",
-    "forall",
-    "func",
-    "self"
-  ];
-  let tokens = [["", null]];
-  while(text.length > 0) {
-    // add whitespaces to last token
-    while(text.length > 0 && /\s/g.test(text[0])) {
-      tokens[tokens.length-1][0] += text[0];
-      text = text.slice(1);
-    }
-    if(text.length === 0) break;
-    
-    // get identifiers and keywords
-    if(/[A-z]/g.test(text[0])) {
-      // identifier or keyword
-      let id = "";
-      while(text.length > 0 && /[A-z0-9]/g.test(text[0])) {
-        id += text[0];
-        text = text.slice(1);
-      }
-      if(keywords.includes(id)) {
-        tokens.push([id, "keyword"]);
-      } else {
-        tokens.push([id, "identifier"]);
-      }
-    } 
-    // get numbers
-    else if(/[0-9]/g.test(text[0])) {
-      let num = "";
-      let found_dot = false;
-      while(text.length > 0 && (/[0-9]/g.test(text[0]) || (text[0] === "." && !found_dot))) {
-        if(text[0] === ".") found_dot = true;
-        num += text[0];
-        text = text.slice(1);
-      }
-      tokens.push([num, "number"]);
-    }
-    // get strings
-    else if(text[0] === "\"") {
-      let str = "\"";
-      text = text.slice(1);
-      while(text.length > 0 && text[0] !== "\"") {
-        str += text[0];
-        text = text.slice(1);
-      }
-      str += "\"";
-      tokens.push([str, "string"]);
-      text = text.slice(1);
-    }
-    // everything else
-    else {
-      // add to last if the last's type is null
-      if(tokens[tokens.length-1][1] === null) {
-        tokens[tokens.length-1][0] += text[0];
-      }
-      // otherwise create a new token
-      else {
-        tokens.push([text[0], null]);
-      }
-      text = text.slice(1);
-    }
-  }
-  return (
-    <span>
-      {tokens.map(([text, type], id) => {
-        if(type === null) {
-          return text;
-        } else {
-          return <span key={id} className={`tol-syntax-${type}`}>{text}</span>
-        }
-      })}
-    </span>
-  )
-}
-
-function TolSnippet(props) {
-  const [setup, setSetup] = React.useState(props.setup.replace("\\n", "\n") + "");
-  const [setupScroll, setSetupScroll] = React.useState(false);
-  const [expr, setExpr] = React.useState(props.expr + "");
-  const [result, setResult] = React.useState(props.pre_result || "");
-  const [resType, setResType] = React.useState(props.pre_type || "");
-  const [error, setError] = React.useState("");
-
-  function run() {
-    // with { <setup> =<expr>; }, we use the block expression feature of tol
-    // the =...; is the block's return 'statement'
-    // we're not actually setting setup to anything, as setup should end with a semicolon
-    try {
-      let res_str = tol.tol_eval("{" + setup + "=" + expr + ";}");
-      let res = JSON.parse(res_str);
-      // console.log(res);
-      if(res.err) {
-        setError(res.err.trim());
-        setResult("");
-        setResType("");
-      } else {
-        setError("");
-        setResult(res.eval.trim());
-        setResType(res.type.trim());
-      }
-    } catch (error) {
-      setError("Fatal error: out of memory?/stack overflow?");
-      setResult("");
-      setResType("");
-      // reset the interpreter since it probably crashed
-      tol.default();
-    }
-  }
-
-  return (
-    <div className='tol-snippet'>
-      {
-        (props.setup_lines === undefined || props.setup_lines > 0) ?
-        (<div className="tol-setup" style={{height: `${props.setup_lines || 10}em`}}>
-          <pre className='stack-inner tol-text' style={{textAlign: "left", overflow: "hidden"}}>
-            <span style={{position: "relative", top: -setupScroll}}>{tol_syntax_highlight(setup)}</span>
-          </pre>
-          <textarea
-            className='stack-inner tol-text'
-            style={{color: "transparent", cursor: "auto"}}
-            name="setup" 
-            value={setup}
-            spellCheck="false"
-            onChange={(event) => { setSetup(event.target.value); }}
-            onKeyDown={(event) => {
-              // tab changes field, so we need to capture the tab and add it ourselves
-              if(event.key === "Tab") {
-                let trgt = event.currentTarget;
-                event.preventDefault();
-                var start = trgt.selectionStart;
-                var end = trgt.selectionEnd;
-                let newSetup = setup.substring(0, start) + "\t" + setup.substring(end);
-                setSetup(newSetup);
-                trgt.value = newSetup;
-                trgt.selectionStart = start + 1;
-                trgt.selectionEnd = start + 1;
-              }
-            }}
-            onScroll={(event) => { setSetupScroll(event.target.scrollTop); }}
-          ></textarea>
-        </div>)
-        : null
-      }
-      <div className='tol-repl'>
-        <div className="tol-expr">
-          <pre className='stack-inner tol-text' style={{
-            textAlign: "left", 
-            overflow: "hidden",
-            paddingTop: "2px",
-            }}>
-            {tol_syntax_highlight(expr)}
-          </pre>
-          <input 
-            className='stack-inner tol-text'
-            style={{color: "transparent", cursor: "auto"}}
-            type="text" 
-            value={expr} 
-            spellCheck="false"
-            onChange={(event) => { setExpr(event.target.value); }}
-            onKeyDown={(event) => {
-              // enter runs the code
-              if(event.key === "Enter") {
-                event.preventDefault();
-                run();
-              }
-            }}
-          ></input>
-        </div>
-        <button
-          className='tol-submit' 
-          onClick={run}
-        >&gt;</button>
-        { error !== "" ? 
-          (<div className="tol-error">{error}</div>) :
-          (<React.Fragment>
-            <div className='tol-result'>{result}</div>
-            <div className='tol-type'>{resType}</div>
-          </React.Fragment> 
-          )
-        }
-        
-      </div>
-    </div>
-  ) 
-}
-
-function TolPage() {
-  return (
-    <div className="App">
-      <Header />
-      <div className="tol-intro">
-        <h1>ToL</h1>
-        <p>
-          is a general purpose functional programming language inspired by C, Rust and Haskell.
-          <br/>
-          While currently, only a purely functional subset of the language is implemented,
-          in the future, it will support writing procedural code, backed by the elegance and rubustness 
-          of functional programming. 
-        </p>
-        <h3>
-          Below you will find example snippets, gently introducing you to the features of the language.
-          <br/>
-          The big text field contains setup code - definitions, decalrations, etc.
-          <br/>
-          The small text field contains the expression to be evaluated.
-          <br/>
-          You can change any of the code, and press the green button to run it and see the effect live.
-        </h3>
-      </div>
-      <div className="tol-snippets">
-        <p>ToL currently supports integer numbers and the <code>+, -, *</code> operations. 
-          The decision to delay floating point numbers is that they may be properly implemented with the type class system.</p>
-        <TolSnippet setup="" expr="2+2*3" pre_result="8" pre_type="int" setup_lines="0"/>
-        
-        <p>Constants are declared with <code>let [name] = [value];</code></p>
-        <TolSnippet setup="let x = 2;\nlet y = 3;" expr="x + y" pre_result="5" pre_type="int" setup_lines="3"/>
-        
-        <p>One of the most important parts of any functional language are lambda functions.
-          In ToL, they take the form <code>(x,y,...) -&gt; [body]</code>.
-          If only one argument is passed, the parentheses can be omitted, like so: <code>x -&gt; [body]</code>.
-          Functions are called by passing the arguments after the function in parentheses, like so: <code>f(x, y, ...)</code>.
-        </p>
-        <TolSnippet setup="let square = x->x*x;" expr="square((x->x+1)(3))" pre_result="16" pre_type="int" setup_lines="3"/>
-        <p>Notice how the lambda function <code>(x-&gt;x+1)</code> is used directly in the expression, without having to declare it separately.</p>
-      </div>
-      <div className="App-placeholder">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p> 
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </div>
-    </div>
-  );
-}
-
-async function run() {
-  await init();
-}
-
 
 function App() {
   let path = window.location.pathname;
   if (path === "/tol") {
-    run();
+    init_tol();
     return (
       <TolPage />
     )
@@ -408,3 +327,4 @@ function App() {
 }
 
 export default App;
+export { Header };

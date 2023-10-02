@@ -1,6 +1,8 @@
 :root {
   --dark-background: #242a35;
   --light-background: #faf8f4;
+  --text-color: hsl(0, 0%, 100%);
+  --accent-color: #36cc8d;
 }
 
 .App {
@@ -110,19 +112,38 @@
 /*------------- Lang Cloud ---------------*/
 .langs-section { 
   /* min-width: 100vh; */
+  width: 100%;
+  display: inline-flex;
   position: relative;
   color: white;
   font-size: 2em;
   min-height: 100vh;
+  height: 100vh;
   padding-top: 5vh;
   padding-bottom: 5vh;
   background-image: radial-gradient(circle at center, #434a57 0% 10vmin, var(--dark-background) 50vmin 100%);
   /* text-shadow: -5px 0 black, 0 5px black, 5px 0 black, 0 -5px black; */
 }
 
+.langs-canvas-holder {
+  width: 50%;
+  flex: 1;
+  display: inline-flex;
+}
+
 .langs-section h3 {
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0%);
+  margin: 0;
+  cursor: pointer;
+}
+
+.langs-info {
+  display: inline-flex;
+  width: 0%;
+  transition: width 0.75s ease-in-out;
+  background: black;
+  height: 100%;
 }
 
 /*------------- ToL ---------------*/
@@ -179,6 +200,7 @@
   padding-bottom: 0.1em;
   font-family: 'Courier New', Courier, monospace;
   border: 1px solid #15161a;
+  white-space: nowrap;
 }
 
 .tol-snippet {
