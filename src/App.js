@@ -194,7 +194,7 @@ function Langs() {
       }
 
       set_lang_spheres(next_lang_spheres);
-    }, 1000/10);
+    }, 1000/20);
 
     const handleResize = e => {
       canvas.height = window.innerHeight;
