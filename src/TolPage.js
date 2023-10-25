@@ -1,7 +1,6 @@
 import init, * as tol from './r-tol/r_tol.js';
 import React from 'react';
 import { Header, Footer } from './App.js';
-import logo from './logo.svg';
 
 function tol_syntax_highlight(text) {
     const keywords = [

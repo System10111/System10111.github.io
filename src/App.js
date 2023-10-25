@@ -3,7 +3,6 @@ import Showcase from './Showcase.js';
 import AboutMe from './AboutMe.js';
 import TolPage, { init_tol } from './TolPage';
 
-import logo from './logo.svg';
 import React from 'react';
 
 import langs from './content/langs.json'
