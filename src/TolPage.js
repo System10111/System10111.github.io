@@ -1,6 +1,6 @@
 import init, * as tol from './r-tol/r_tol.js';
 import React from 'react';
-import { Header } from './App.js';
+import { Header, Footer } from './App.js';
 import logo from './logo.svg';
 
 function tol_syntax_highlight(text) {
@@ -129,11 +129,14 @@ function TolSnippet(props) {
         }
     }
 
+    var setup_style = { height: `${props.setup_lines || 10}em` };
+    if(props.is_playground) setup_style["max-width"] = "90%";
+
     return (
-        <div className='tol-snippet'>
+        <div className='tol-snippet' id={props.is_playground ? "tol-playground" : undefined}>
             {
                 (props.setup_lines === undefined || props.setup_lines > 0) ?
-                    (<div className="tol-setup" style={{ height: `${props.setup_lines || 10}em` }}>
+                    (<div className="tol-setup" style={setup_style}>
                         <pre className='stack-inner tol-text' style={{ textAlign: "left", overflow: "hidden" }}>
                             <span style={{ position: "relative", top: -setupScroll }}>{tol_syntax_highlight(setup)}</span>
                         </pre>
@@ -229,6 +232,13 @@ function TolPage() {
                     <br />
                     You can change any of the code, and press the green button to run it and see the effect live.
                 </h3>
+                <button className="tol-to-playground" onClick={
+                    () => {
+                        document.getElementById("tol-playground").scrollIntoView({ behavior: "smooth" });
+                    }
+                }>
+                    Go to playground
+                </button>
             </div>
             <div className="tol-snippets">
                 <p>ToL currently supports integer numbers and the <code>+, -, *</code> operations.
@@ -561,21 +571,20 @@ function TolPage() {
                 />
 
 
-            </div>
-            <div className="App-placeholder">
-                <img src={logo} className="App-logo" alt="logo" />
                 <p>
-                    Edit <code>src/App.js</code> and save to reload.
+                    Here is a large space for you to play around with the language.
                 </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
+
+                <TolSnippet is_playground="true" setup_lines="50" 
+                setup="let arr = [1,2,3,4,5,6,7,8,9,10];
+                \nlet sum = (xs)-> match xs {\n\t[x : xs] => x + sum(xs),\n\t_ => 0\n};\n
+                " 
+                expr="sum(arr)"/>
+
+                <br/>
+                <br/>
             </div>
+            <Footer />
         </div>
     );
 }

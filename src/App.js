@@ -277,6 +277,20 @@ function Langs() {
   );
 }
 
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="footer-left">
+        <h3 className="footer-text">Kristian R</h3>
+      </div>
+      <div className="footer-right">
+        <h3 className="footer-text">krisi2001@gmail.com</h3>
+        <h3 className="footer-text">+359 88 615 1112</h3>
+      </div>
+    </footer>
+  );
+}
+
 
 function MainPage() {
   return (
@@ -293,20 +307,7 @@ function MainPage() {
         id="about-to-langs"
       />
       <Langs />
-      <div className="App-placeholder">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p> 
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </div>
+      <Footer />
     </div>
   );
 }
@@ -327,4 +328,4 @@ function App() {
 }
 
 export default App;
-export { Header };
+export { Header, Footer };
