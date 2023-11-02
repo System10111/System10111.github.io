@@ -7,20 +7,23 @@ import React from 'react';
 
 import langs from './content/langs.json'
 
+import logo from './logo.svg';
+
 
 function Header() {
   return (
     <header className="header">
-      <div className="header-left"> 
-        <h1 className="header-text" 
+      <div className="header-left"
         onClick={
           () => {window.location.href = '/';}
         }
         style={{cursor: 'pointer'}}
-        >Kristian R</h1>
+      > 
+        <h1 className="header-text">Kristian R</h1>
+        <img src={logo} className="header-logo" alt="logo" />
       </div>
       <div className="header-right">
-        <h3 className="header-small-text">a cool link</h3>
+        <a href='/project/type_one'>Type One</a>
         <h3 className="header-small-text">another cool link</h3>
         <h3 className="header-small-text">a third cool link</h3>
         <a href='/tol'>ToL</a>
@@ -281,6 +284,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer-left">
         <h3 className="footer-text">Kristian R</h3>
+        <img src={logo} className="header-logo" alt="logo" />
       </div>
       <div className="footer-right">
         <h3 className="footer-text">krisi2001@gmail.com</h3>
