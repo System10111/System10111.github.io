@@ -1,16 +1,17 @@
 [
     {
-        "img": "img/type_one7.png",
-        "title": "This is Type One",
-        "description": "This is the text for Type One\nit contains a line break"
+        "img": "/img/type_one7.png",
+        "title": "Type One",
+        "description": "A sci-fi game about controlling the entire Earth\none of my flagship projects",
+        "link": "/project/type_one"
     },
     {
-        "img": "img/type_one5.png",
+        "img": "/img/type_one5.png",
         "title": "Lorem ipsum dolor sit amet",
         "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     },
     {
-        "img": "img/type_one3.png",
+        "img": "/img/type_one3.png",
         "title": "Dolor sit amet consectetur",
         "description": "a short description"
     }

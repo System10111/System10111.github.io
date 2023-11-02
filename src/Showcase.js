@@ -7,7 +7,7 @@ function Showcase() {
   const [index, setIndex] = React.useState(0);
   const [isHovering, setIsHovering] = React.useState(false);
   const timeout_ref = React.useRef(null);
-  const delay = 50000;
+  const delay = 5000;
 
   function reset_timeout() {
     if (timeout_ref.current) {
@@ -46,6 +46,11 @@ function Showcase() {
             >
               <div className="slideshow-slide-image"
                 style={{backgroundImage: `url(${slide.img})`}} 
+                onClick={() => {
+                  if(slide.link) {
+                    window.location.href = slide.link;
+                  }
+                }}
               />
               <div className="slideshow-slide-text" 
                 style={{opacity: isHovering ? 1.0 : 0.0}}

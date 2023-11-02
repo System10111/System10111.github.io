@@ -1,0 +1,43 @@
+{
+    "type_one": {
+        "sections": [
+            {
+                "type": "image_text",
+                "direction": "right",
+                "image": "/img/type_one7.png",
+                "h1": "Command the entire Earth",
+                "h2": "The planetary engine is the pinnacle of human technology\nYet even it pales in comparison to the challenges ahead"
+            },
+            {
+                "type": "image_text",
+                "direction": "left",
+                "image": "/img/type_one11.png",
+                "h1": "Discover the fate of a fading galaxy",
+                "h2": "Many creatures and civilisations still cling to life\nYou will have to cooperate and compete with them to survive\n"
+            },
+            {
+                "type": "image_text",
+                "direction": "right",
+                "image": "/img/type_one5.png",
+                "flip_image": true,
+                "h1": "Manage the resources of entire worlds",
+                "h2": "The right materials as well as the right people\nare needed to build up the capabilites of the Earth"
+            },
+            {
+                "type": "image_text",
+                "direction": "left",
+                "image": "/img/type_one2.png",
+                "h1": "Powered by ray marching",
+                "h2": "The custom graphics engine allows for high quality lighting\nand capabilites for incredible visual effects"
+            },
+            {
+                "type": "download",
+                "image": "/img/type_one10.png",
+                "link": "https://drive.google.com/file/d/1I0GkCvgIehVrbulDWllrpYYCRT5GFuey/view?usp=sharing",
+                "button_text": "Download Type One alpha 0.2.1",
+                "h1": "Download the alpha build",
+                "h2": "The game is still heavily in development but you can download the alpha build now\nThere is not yet much of substance to do, but you can explore the test nebula\n\nThese are the controls: \nWASD - movement\nShift - boost\nCtrl - momentum speedup\nLClick - shoot laser\nJ - capture asteroid\nT - shoot missiles\n\nFreecam controls:\nHOME - toggle freecam\nWASD - movement\nShift - speedup\nR - reset camera\nL - lock mouse\nP - change perspective mode\nF10 - take screenshot(saved in game folder)"
+            }
+        ]
+    }
+}

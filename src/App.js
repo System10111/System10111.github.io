@@ -2,6 +2,7 @@ import './App.css';
 import Showcase from './Showcase.js';
 import AboutMe from './AboutMe.js';
 import TolPage, { init_tol } from './TolPage';
+import ProjectPage from './ProjectPage.js';
 
 import React from 'react';
 
@@ -323,6 +324,11 @@ function App() {
     return (
       <TolPage />
     )
+  } else if (path.startsWith("/project/")) {
+    let name = path.substring(9);
+    return (
+      <ProjectPage name={name} />
+    );
   } else {
     return (
       <MainPage />

@@ -31,7 +31,7 @@ function AboutMe() {
           game programming in C# and Unity. 
           I am comfortable working independently or as part of a team and am always eager to 
           stay up-to-date on the latest developments in my field. 
-          I am currently working on developing a <a href='/type-one'>3D space game</a> with OpenGL and C, 
+          I am currently working on developing a <a href='/project/type-one'>3D space game</a> with OpenGL and C, 
           as well as my own programming language - <a href='/tol'>ToL</a>.
           My favorite language is C, 
           but I am also proficient in C++, C#, Java, Python, Javascript, Haskell, Rust and others. 

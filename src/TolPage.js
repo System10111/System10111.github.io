@@ -1,3 +1,4 @@
+import './TolPage.css';
 import init, * as tol from './r-tol/r_tol.js';
 import React from 'react';
 import { Header, Footer } from './App.js';
@@ -288,7 +289,6 @@ function TolPage() {
                 </p>
                 <TolSnippet setup="let twice = f->x->f(f(x));\nlet square_twice = twice(x->x*x);" expr="square_twice(2)" pre_result="16" pre_type="int" setup_lines="4" />
 
-                {/* this snippet produces <thunk> instead of 16, so it's commented out for now */}
                 <p>
                     A classic example of a higher order function is the <code>compose</code> function, which takes
                     two functions <code>f</code> and <code>g</code> and returns a new function <code>h</code> such that <code>h(x) == f(g(x))</code>.
@@ -297,12 +297,12 @@ function TolPage() {
 
                 <p>
                     It is worth mentioning that you may use this repl to inspect the type of any ToL expression,
-                    even functions, by simply evaluating them. The shown value will be <code>&lt;thunk&gt;</code>,
+                    even functions, by simply evaluating them. The shown value will be <code>&lt;non-displayable&gt;</code>,
                     and the correct type will be displayed to it's right.
                     <br />
                     For example <code>twice</code>'s type is:
                 </p>
-                <TolSnippet setup="let twice = f->x->f(f(x));" expr="twice" pre_result="<thunk>" pre_type="forall a: (a -> a) -> a -> a" setup_lines="2" />
+                <TolSnippet setup="let twice = f->x->f(f(x));" expr="twice" pre_result="<non-displayable>" pre_type="forall a: (a -> a) -> a -> a" setup_lines="2" />
                 <p>
                     You may think it would be <code>(int -&gt; int) -&gt; int -&gt; int</code>,
                     meaning "take a function from int to int, and an int and return an int" (or "take int -&gt; int and return int -&gt; int"),
@@ -312,7 +312,6 @@ function TolPage() {
                     After all, <code>twice</code> doesn't care what function it has to apply twice, as long as said function takes the same thing as it returns.
                 </p>
 
-                {/* this snippet produces 6 instead of 48, so it's commented out for now */}
                 <p>
                     An interesting consequence of this is that <code>twice</code>, being a function that takes something and returns the same thing,
                     can be passed to <code>twice</code> itself. The resulting function <code>quad</code> applies a function four times in total.
