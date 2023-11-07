@@ -5,6 +5,71 @@
   background-color: var(--light-background);
 }
 
+.aboutme-port {
+  margin: 0 auto;
+  overflow: hidden;
+  min-height: 100vh;
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.aboutme-scene {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.aboutme-logo {
+  position: absolute;
+  background-image: url("logo.svg");
+  background-size: 60% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+
+  filter: invert(100%);
+  transform: perspective(5000px) translate3d(0, 0, -2000px);
+}
+
+
+.aboutme-plane {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-image: radial-gradient(circle at center, #434a57 0%, #ffffff00 40% );
+  transform-origin: center;
+  transform: perspective(5000px)  translate3d(0, 500px, -2000px) rotate3d(1, 0, 0, 85deg) scale(2.2);
+}
+
+.aboutme-slider {
+  position: relative;
+  white-space: nowrap;
+  height: 90vh;
+  min-width: 100%;
+  transform-style: preserve-3d;
+  transition: ease 2.0s;
+}
+
+.aboutme-slide {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.aboutme-panel {
+  height: 100%;
+  max-width: 150vh;
+  width: 75%;
+  margin: 0 auto;
+  border-radius: 5%;
+  /* border: 10px solid; */
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-shadow: inset 0px 0px 20px 20px rgb(255 255 255 / 18%)
+}
+
 .aboutme-pic {
   border-radius: 50%;
   overflow: hidden;

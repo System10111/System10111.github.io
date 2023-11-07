@@ -1,7 +1,7 @@
 import React from 'react';
 import './AboutMe.css';
 
-function AboutMe() {
+function AboutMeOld() {
   return (
     <div className="aboutme-section">
       <div className='aboutme-pic'/>
@@ -42,6 +42,52 @@ function AboutMe() {
           </p>
         </div>
       </div>  
+    </div>
+  )
+}
+
+function AboutMe() {
+  const [index, setIndex] = React.useState(0);
+
+  return (
+    <div className="aboutme-section">
+      <div className="aboutme-port"
+        onClick={(e) => { 
+          if(e.clientX < window.innerWidth / 3) {
+            setIndex((prevIndex) => prevIndex - 1);
+          } else if(e.clientX > window.innerWidth * 2 / 3) {
+            setIndex((prevIndex) => prevIndex + 1);
+          }
+        }}
+      >
+        <div className="aboutme-scene">
+          <div className="aboutme-plane"/>
+          <div className="aboutme-logo" alt="logo"/>
+          <div className="aboutme-slider"
+            style={{ 
+              transform: `perspective(5000px) translate3d(0, 0, -2000px) rotate3d(0, 1, 0, ${index * 120}deg)`
+            }}
+          >
+            {
+            // [[148, 30, 28], [28, 148, 30], [30, 28, 148]] // dilute rgb
+            [[238, 143, 141], [141, 238, 143], [143, 141, 238]] // pastel rgb
+            // [[225, 185, 101], [101, 225, 185], [185, 101, 225]] // dilute y/o lb/lg mg/pr
+            // first create border color - 20% darker, then convert to string with rgb
+            .map((color) => ([
+              `rgb(${color[0]}, ${color[1]}, ${color[2]}, 0.98)`,
+              `rgb(${color[0] * 0.8}, ${color[1] * 0.8}, ${color[2] * 0.8})`]))
+            .map((color, i) => (
+              <div className="aboutme-slide" key={i}
+              style={{
+                transform: `rotate3d(0, 1, 0, ${180 - i * 120}deg) translate3d(0, 0, -1000px)`,
+              }}>
+                <div className="aboutme-panel" 
+                  style={{backgroundColor: color[0], borderColor: color[1]}}/>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
