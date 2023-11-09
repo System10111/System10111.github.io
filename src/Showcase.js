@@ -52,12 +52,27 @@ function Showcase() {
                   }
                 }}
               />
+
               <div className="slideshow-slide-text" 
                 style={{opacity: isHovering ? 1.0 : 0.0}}
               >
                 <h1>{slide.title}</h1>
                 <p>{slide.description}</p>
               </div>
+              
+              <div className="slideshow-nav"
+                style={{opacity: isHovering ? 1.0 : 0.0}}
+                onClick={() => setIndex((prevIndex) =>
+                  prevIndex === 0 ? showcase_slides.length - 1 : prevIndex - 1
+                )}
+              ><b>&lt;</b></div>
+              <div className="slideshow-nav"
+                style={{opacity: isHovering ? 1.0 : 0.0, right: 0}}
+                onClick={() => setIndex((prevIndex) =>
+                  prevIndex === showcase_slides.length - 1 ? 0 : prevIndex + 1
+                )}
+              ><b>&gt;</b></div>
+
             </div>
             ))}
         </div>
