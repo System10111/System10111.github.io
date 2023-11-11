@@ -66,12 +66,12 @@
   }
   
   .slideshow-slide-text h1 {
-    margin-left: 10%;
+    margin-left: 12%;
     margin-bottom: 0px;
   }
   
   .slideshow-slide-text p {
-    margin-left: 12%;
+    margin-left: 14%;
     white-space: pre-wrap;
     text-align: left;
   }
@@ -81,7 +81,7 @@
     height: 60%;
     position: absolute;
     top: 20%;
-    width: 8%;
+    width: 12vh;
     z-index: 20;
     display: flex;
     align-items: center;
