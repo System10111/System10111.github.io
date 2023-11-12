@@ -267,7 +267,7 @@ function Skills() {
             return [cloud_name, cloud];
         }))
     ); // { cloud: { pos, color, skills: { skill: { pos, level, scale, radius, connection, mouse_dist } } }
-
+    const [selected_skill, set_selected_skill] = React.useState("");
 
     function update_clouds(canvas, context) {
         const DEBUG = false;
@@ -327,13 +327,14 @@ function Skills() {
                     context.beginPath();
                     context.moveTo(x, y);
                     context.lineTo(x2, y2);
-                    context.strokeStyle = "rgba(255,255,255,0.5)";
+                    // context.strokeStyle = "rgba(255,255,255,0.5)";
+                    context.strokeStyle = `rgba(${cloud_data["color"][0]},${cloud_data["color"][1]},${cloud_data["color"][2]},0.5)`;
                     context.stroke();
 
                     skill_list[j][1] = s2;
                 }
 
-                const wall_push_speed = 5.0;
+                const wall_push_speed = 10.0;
                 const wall_rad_mult = 0.5;
                 // move away from walls
                 if(x < 0 + s1_rad * wall_rad_mult) {
@@ -359,6 +360,22 @@ function Skills() {
                 s1["pos"][0] += dx_norm * attract_speed;
                 s1["pos"][1] += dy_norm * attract_speed;
 
+                if(s1["connection"]) {
+                    let [cloud_name, skill_name] = s1["connection"].split("/");
+                    let s2 = next_clouds[cloud_name]["skills"][skill_name];
+                    let [x2, y2] = s2["pos"];
+                    context.beginPath();
+                    context.moveTo(x, y);
+                    context.lineTo(x2, y2);
+                    // context.strokeStyle = "rgba(255,255,255,0.5)";
+                    // context.strokeStyle = `rgba(${cloud_data["color"][0]},${cloud_data["color"][1]},${cloud_data["color"][2]},0.5)`;
+                    // have a gradient from the color of the cloud to the color of the connected cloud
+                    let grad = context.createLinearGradient(x, y, x2, y2);
+                    grad.addColorStop(0, `rgba(${cloud_data["color"][0]},${cloud_data["color"][1]},${cloud_data["color"][2]},0.5)`);
+                    grad.addColorStop(1, `rgba(${next_clouds[cloud_name]["color"][0]},${next_clouds[cloud_name]["color"][1]},${next_clouds[cloud_name]["color"][2]},0.5)`);
+                    context.strokeStyle = grad;
+                    context.stroke();
+                }
 
                 // draw the sphere for debug purposes
                 if(DEBUG) {
@@ -415,6 +432,9 @@ function Skills() {
             // onClick={() => { console.log(clouds); }}
         >
           <div className="skills-canvas-holder"
+            style={{
+              filter: selected_skill ? "blur(5px)" : "none",
+            }}
             onMouseMove= {e => { 
                 let t_rect = document.getElementById('skills_canvas').getBoundingClientRect();
                 let [mx, my] = [e.clientX - t_rect.left, e.clientY - t_rect.top];
@@ -467,13 +487,36 @@ function Skills() {
                                 transform: `translate(-50%, -50%) scale(${cur_scale(skill_data)})`,
                                 opacity: Math.max(1.0, 0.5),
                                 fontSize: `${0.8 *  skill_data["scale"]}em`,
-                                color: "var(--text-color)",	
+                                // color: "var(--text-color)",	
+                                color: `rgba(${cloud_data["color"][0]},${cloud_data["color"][1]},${cloud_data["color"][2]},1.0)`,
+                              }}
+                              onClick={() => {
+                                if(selected_skill === skill_name) {
+                                  set_selected_skill("");
+                                } else {
+                                  set_selected_skill(skill_name);
+                                }
                               }}
                             >{skill_name}</h3>
                           );
                     });
                 })
             }
+          </div>
+          <div className="skills-info"
+            style={{
+                // this is a fun hack - since we want a transition on the opacity, we can't just set display to none
+                // so we just yeet the entire div offscreen instead
+                left: selected_skill ? "0" : "-100%"
+            }}
+            onClick={() => { set_selected_skill(""); }}
+          >
+            <div className="skills-info-panel"
+              style={{
+                opacity: selected_skill ? "1" : "0",
+              }}
+            >
+            </div>
           </div>
         </div>
     );
