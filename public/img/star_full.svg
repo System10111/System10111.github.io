@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="matrix(2.809999942779541, 0, 0, 2.809999942779541, 1.40659344196321, 1.406593441963203)">
+    <path d="M 69.671 88.046 C 68.863 88.046 68.051 87.851 67.301 87.456 L 45 75.732 L 22.7 87.456 C 20.973 88.363 18.921 88.213 17.344 87.068 C 15.767 85.922 14.992 84.016 15.321 82.096 L 19.58 57.264 L 1.539 39.678 C 0.143 38.317 -0.35 36.32 0.252 34.465 C 0.855 32.611 2.428 31.284 4.357 31.004 L 29.289 27.382 L 40.44 4.79 C 41.303 3.041 43.05 1.955 45 1.955 C 45 1.955 45 1.955 45.001 1.955 C 46.95 1.955 48.697 3.041 49.56 4.789 L 60.71 27.381 L 85.642 31.004 C 87.572 31.284 89.145 32.61 89.747 34.465 C 90.35 36.319 89.856 38.316 88.46 39.678 L 70.419 57.264 L 74.679 82.096 C 75.008 84.017 74.233 85.923 72.656 87.068 C 71.764 87.717 70.721 88.046 69.671 88.046 Z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill-rule: nonzero; opacity: 1; paint-order: fill; fill: rgb(255, 255, 255);" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+  </g>
+</svg>

@@ -2,6 +2,11 @@ import React from 'react';
 
 import skills from './content/skills.json'
 
+
+const star_svg = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100" fill="#000000">
+<path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/>
+</svg>
+
 // eslint-disable-next-line
 function OldSkills() {
     // return (
@@ -261,13 +266,14 @@ function Skills() {
                     "scale": skill_data["scale"],
                     "radius": skill_data["radius"],
                     "connection": skill_data["connection"],
-                    "mouse_dist": 9999.0
+                    "description": skill_data["description"],
+                    "mouse_dist": 9999.0,
                 };
             });
             return [cloud_name, cloud];
         }))
     ); // { cloud: { pos, color, skills: { skill: { pos, level, scale, radius, connection, mouse_dist } } }
-    const [selected_skill, set_selected_skill] = React.useState("");
+    const [selected_skill, set_selected_skill] = React.useState(undefined);
 
     function update_clouds(canvas, context) {
         const DEBUG = false;
@@ -278,7 +284,7 @@ function Skills() {
         let next_clouds = {...clouds};
 
         // move, unoverlap, and draw spheres and lines
-        for(let [cloud_name, cloud_data] of Object.entries(next_clouds)) {
+        for(let [, cloud_data] of Object.entries(next_clouds)) {
             let skill_list = Object.entries(cloud_data["skills"]);
 
             for(let i = 0; i < skill_list.length; i++) {
@@ -338,16 +344,16 @@ function Skills() {
                 const wall_rad_mult = 0.5;
                 // move away from walls
                 if(x < 0 + s1_rad * wall_rad_mult) {
-                    s1["pos"][0] = Math.min(s1["pos"][0] + wall_push_speed, 0 + s1_rad);
+                    s1["pos"][0] = Math.min(s1["pos"][0] + wall_push_speed, 0 + s1_rad * wall_rad_mult);
                 }
                 if(x > canvas.width - s1_rad * wall_rad_mult) {
-                    s1["pos"][0] = Math.max(s1["pos"][0] - wall_push_speed, canvas.width - s1_rad);
+                    s1["pos"][0] = Math.max(s1["pos"][0] - wall_push_speed, canvas.width - s1_rad * wall_rad_mult);
                 }
                 if(y < 0 + s1_rad * wall_rad_mult) {
-                    s1["pos"][1] = Math.min(s1["pos"][1] + wall_push_speed, 0 + s1_rad);
+                    s1["pos"][1] = Math.min(s1["pos"][1] + wall_push_speed, 0 + s1_rad * wall_rad_mult);
                 }
                 if(y > canvas.height - s1_rad * wall_rad_mult) {
-                    s1["pos"][1] = Math.max(s1["pos"][1] - wall_push_speed, canvas.height - s1_rad);
+                    s1["pos"][1] = Math.max(s1["pos"][1] - wall_push_speed, canvas.height - s1_rad * wall_rad_mult);
                 }
 
                 const attract_speed = 0.75;
@@ -429,7 +435,7 @@ function Skills() {
 
     return ( 
         <div className="skills-section"
-            // onClick={() => { console.log(clouds); }}
+            onClick={() => { console.log(clouds); }}
         >
           <div className="skills-canvas-holder"
             style={{
@@ -441,7 +447,7 @@ function Skills() {
                 // console.log(mx, my);
                 
                 let next_clouds = {...clouds};
-                for(let [cloud_name, cloud_data] of Object.entries(next_clouds)) {
+                for(let [, cloud_data] of Object.entries(next_clouds)) {
                     let skill_list = Object.entries(cloud_data["skills"]);
                     for(let i = 0; i < skill_list.length; i++) {
                         let s1 = skill_list[i][1];
@@ -458,7 +464,7 @@ function Skills() {
             onMouseLeave={e => {
                 // reset all mouse_dist values to 9999
                 let next_clouds = {...clouds};
-                for(let [cloud_name, cloud_data] of Object.entries(next_clouds)) {
+                for(let [, cloud_data] of Object.entries(next_clouds)) {
                     let skill_list = Object.entries(cloud_data["skills"]);
                     for(let i = 0; i < skill_list.length; i++) {
                         let s1 = skill_list[i][1];
@@ -469,14 +475,11 @@ function Skills() {
                 }
             }}
           >
-            <canvas id='skills_canvas' ref={canvasRef} //width="1280" height="720" 
-                />{
+            <canvas id='skills_canvas' ref={canvasRef}/>
+            {
                 Object.entries(clouds).flatMap( ([cloud_name, cloud_data], id) => {
                     return Object.entries(cloud_data["skills"]).map( ([skill_name, skill_data], id) => {
                         let [x, y] = skill_data["pos"];
-                        let [width, height] = canvasRef.current ? 
-                            [canvasRef.current.width, canvasRef.current.height] :
-                            [window.innerWidth, window.innerHeight];
                         return (
                             <h3 
                               key={skill_name}
@@ -492,9 +495,9 @@ function Skills() {
                               }}
                               onClick={() => {
                                 if(selected_skill === skill_name) {
-                                  set_selected_skill("");
+                                  set_selected_skill([]);
                                 } else {
-                                  set_selected_skill(skill_name);
+                                  set_selected_skill([cloud_name, skill_name]);
                                 }
                               }}
                             >{skill_name}</h3>
@@ -515,8 +518,29 @@ function Skills() {
               style={{
                 opacity: selected_skill ? "1" : "0",
               }}
-            >
-            </div>
+            >{ selected_skill ? <div>
+                <h2>{selected_skill[1]}</h2>
+                <br/>
+                <div className="skills-info-stars">
+                  <div className="skills-info-stars-half"
+                    style={{
+                      width: `${clouds[selected_skill[0]]["skills"][selected_skill[1]]["level"]/5 * 100}%`,
+                      backgroundImage: `url(/img/star_full.svg)`, 
+                    }}
+                  />
+                  <div className="skills-info-stars-half"
+                    style={{
+                      width: "100%",
+                      backgroundImage: `url(/img/star.svg)`, 
+                    }}
+                  />
+                </div>
+                {
+                  clouds[selected_skill[0]]["skills"][selected_skill[1]]["description"] ?
+                  <p dangerouslySetInnerHTML={{ __html: clouds[selected_skill[0]]["skills"][selected_skill[1]]["description"]}}/> :
+                  <p/>
+                }
+            </div> : <div/>}</div>
           </div>
         </div>
     );

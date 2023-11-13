@@ -10,7 +10,8 @@
         "C": {
             "level": "5",
             "scale": "1.1",
-            "radius": "4"
+            "radius": "4",
+            "description": "My favorite language. <a href='/project/type_one'>Type One</a> is written in C."
         },
         "C++": {
             "level": "4",
@@ -123,6 +124,21 @@
             "scale": "0.9",
             "radius": "5",
             "connection": "Misc/Unity"
+        },
+        "Guitar": {
+            "level": "5.0",
+            "scale": "1.2",
+            "radius": "5"
+        },
+        "Piano": {
+            "level": "3.5",
+            "scale": "0.9",
+            "radius": "5"
+        },
+        "Drums": {
+            "level": "3.5",
+            "scale": "1.1",
+            "radius": "5"
         }
     },
     "Misc": {
