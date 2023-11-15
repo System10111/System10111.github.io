@@ -110,7 +110,7 @@ function AboutMe() {
   const [index, setIndex] = React.useState(0);
 
   return (
-    <div className="aboutme-section">
+    <div className="aboutme-section" id='about_me'>
       <div className="aboutme-port">
         <div className="aboutme-scene">
           <div className="aboutme-plane"/>

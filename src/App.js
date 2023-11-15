@@ -24,10 +24,38 @@ function Header() {
         <img src={logo} className="header-logo" alt="logo" />
       </div>
       <div className="header-right">
-        <a href='/project/type_one'>Type One</a>
-        <h3 className="header-small-text">another cool link</h3>
-        <h3 className="header-small-text">a third cool link</h3>
-        <a href='/tol'>ToL</a>
+        <h3 className="header-link" 
+          onClick={() => {window.location.href = '/project/type_one';}}
+        >Type One</h3>
+        <div className="header-vbreak"/>
+
+        <h3 className="header-link"
+          onClick={ () => {window.location.href = '/tol';} }
+        >ToL</h3>
+        <div className="header-vbreak"/>
+
+        {/* goes about me section (element id "about-me"). if not on home page, first goes to home page and then scrolls */}
+        <h3 className="header-link"
+          onClick={ () => {
+            if (window.location.pathname !== '/') {
+              window.location.href = '/#about_me';
+            } else {
+              document.getElementById('about_me').scrollIntoView({behavior: "smooth"});
+            }
+          }}
+        >About Me</h3>
+        <div className="header-vbreak"/>
+        
+        <h3 className="header-link"
+          onClick={ () => {
+            if (window.location.pathname !== '/') {
+              window.location.href = '/#skills';
+            } else {
+              document.getElementById('skills').scrollIntoView({behavior: "smooth"});
+            }
+          }}
+        >Skills</h3>
+        <div className="header-vbreak"/>
       </div>
     </header>
   );
@@ -102,6 +130,12 @@ function Footer() {
 
 
 function MainPage() {
+  // if the section is not empty, scroll to it
+  React.useEffect(() => {
+    if (window.location.hash !== "") {
+      document.getElementById(window.location.hash.substring(1)).scrollIntoView({behavior: "smooth"});
+    }
+  }, []);
   return (
     <div className="App">
       <Header />
@@ -135,8 +169,10 @@ function App() {
       <ProjectPage name={name} />
     );
   } else {
+    // pass anything after a '#' to the main page as desired section id
+    let section = window.location.hash.substring(1);
     return (
-      <MainPage />
+      <MainPage section={section} />
     );
   }
 }

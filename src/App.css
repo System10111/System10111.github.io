@@ -40,16 +40,6 @@ a {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
 /*------------- Header --------------*/
 
 .header {
@@ -95,9 +85,19 @@ a {
   white-space: nowrap;
 }
 
-.header-small-text {
+.header-link {
+  cursor: pointer;
   font-size: 1em; 
   margin: 0.3em;
+}
+
+.header-vbreak {
+  content: "";
+  display: block;
+  width: 3px;
+  height: 1.5em;
+  background-image: linear-gradient(to bottom, transparent 0%, white 50%, transparent 100%);
+  margin: 0 0.5em;
 }
 
 .transition-section {

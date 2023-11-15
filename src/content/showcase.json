@@ -6,13 +6,15 @@
         "link": "/project/type_one"
     },
     {
-        "img": "/img/type_one5.png",
-        "title": "Lorem ipsum dolor sit amet",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        "img": "/img/tol_banner.png",
+        "title": "A Functional Programming Language",
+        "description": "ToL is a whole programming language I created\nfrom the ground up, focusing on speed and elegance",
+        "link": "/tol"
     },
     {
-        "img": "/img/type_one3.png",
-        "title": "Dolor sit amet consectetur",
-        "description": "a short description"
+        "img": "/img/dino2.png",
+        "title": "Dinosaurs!",
+        "description": "Educational game about dinosaurs\nmade for the 2018 Bulgarian National IT Olympiad",
+        "link": "/project/dinos"
     }
 ]

@@ -434,7 +434,7 @@ function Skills() {
 
 
     return ( 
-        <div className="skills-section"
+        <div className="skills-section" id="skills"
             onClick={() => { console.log(clouds); }}
         >
           <div className="skills-canvas-holder"

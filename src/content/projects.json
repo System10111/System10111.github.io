@@ -39,5 +39,37 @@
                 "h2": "The game is still heavily in development but you can download the alpha build now\nThere is not yet much of substance to do, but you can explore the test nebula\n\nThese are the controls: \nWASD - movement\nShift - boost\nCtrl - momentum speedup\nLClick - shoot laser\nJ - capture asteroid\nT - shoot missiles\n\nFreecam controls:\nHOME - toggle freecam\nWASD - movement\nShift - speedup\nR - reset camera\nL - lock mouse\nP - change perspective mode\nF10 - take screenshot(saved in game folder)"
             }
         ]
+    },
+    "dinos": {
+        "sections": [
+            {
+                "type": "image_text",
+                "direction": "left",
+                "image": "/img/dino1.png",
+                "h1": "Динозаври! (Dinosaurs!)",
+                "h2": "An educational game about dinosaurs\nMade for the 2018 Bulgarian National Olympiad in Informatics"
+            },
+            {
+                "type": "image_text",
+                "direction": "right",
+                "image": "/img/dino2.png",
+                "h1": "Explore the world of dinosaurs",
+                "h2": "Learn about the different types of dinosaurs\nand the eras they lived in"
+            },
+            {
+                "type": "image_text",
+                "direction": "left",
+                "image": "/img/dino3.png",
+                "h1": "Play minigames",
+                "h2": "Test your knowledge in a quiz\nand play a game of perception"
+            },
+            {
+                "type": "image_text",
+                "direction": "right",
+                "image": "/img/dino5.jpg",
+                "h1": "A living encyclopedia",
+                "h2": "Interesting facts about dinosaurs are presented\nin a fun and interactive way"
+            }
+        ]
     }
 }
