@@ -16,5 +16,24 @@
         "title": "Dinosaurs!",
         "description": "Educational game about dinosaurs\nmade for the 2018 Bulgarian National IT Olympiad",
         "link": "/project/dinos"
+    },
+    {
+        "img": "/img/genes1.png",
+        "title": "Gene Pool",
+        "description": "A game about genetics and selective breeding\nmade for the 2019 Bulgarian National IT Olympiad",
+        "link": "/project/genes"
+    },
+    {
+        "img": "/img/hc1.png",
+        "title": "Hardcoded... To Self-Destruct",
+        "description": "A tiny puzzle platformer made in 48 hours\nfor a game jam",
+        "link": "/project/hardcoded"
+    },
+    {
+        "img": "/img/apiteka.png",
+        "title": "apiteka.eu",
+        "description": "Created the backend and database for an online store.",
+        "link": "https://apiteka.eu/",
+        "external": true
     }
 ]

@@ -48,7 +48,12 @@ function Showcase() {
                 style={{backgroundImage: `url(${slide.img})`}} 
                 onClick={() => {
                   if(slide.link) {
-                    window.location.href = slide.link;
+                    if(slide.external) {
+                      window.open(slide.link, "_blank");
+                      return;
+                    } else {
+                      window.location.href = slide.link;
+                    }
                   }
                 }}
               />

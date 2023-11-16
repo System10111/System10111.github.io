@@ -71,5 +71,69 @@
                 "h2": "Interesting facts about dinosaurs are presented\nin a fun and interactive way"
             }
         ]
+    },
+    "genes": {
+        "sections":[
+            {
+                "type": "image_text",
+                "direction": "right",
+                "image": "/img/genes1.png",
+                "h1": "Генетичен басейн (Gene pool)",
+                "h2": "A game meant to teach the basics of genetics\nMade for the 2019 Bulgarian National Olympiad in Informatics"
+            },
+            {
+                "type": "image_text",
+                "direction": "left",
+                "image": "/img/genes2.png",
+                "h1": "Animals have different genes",
+                "h2": "Each one contributes to the animal's appearance\nand the way it interacts with the environment"
+            },
+            {
+                "type": "image_text",
+                "direction": "right",
+                "image": "/img/genes3.png",
+                "h1": "A farmer must also feed his animals",
+                "h2": "A plant's genes determine its growth\nand the amount of food it provides"
+            },
+            {
+                "type": "image_text",
+                "direction": "left",
+                "image": "/img/genes4.png",
+                "h1": "Build up your farm",
+                "h2": "Construct fences and feeding troughs\nand watch your animals grow"
+            },
+            {
+                "type": "image_text",
+                "direction": "right",
+                "image": "/img/genes5.png",
+                "h1": "Experiment!",
+                "h2": "Combine different genes - keep in mind that sometimes they\ncan mutate and produce unexpected results\n\nCreate the most profitable or the healtiest animals - the choice is yours"
+            }
+        ]
+    },
+    "hardcoded": {
+        "sections": [
+            {
+                "type": "image_text",
+                "direction": "right",
+                "image": "/img/hc2.png",
+                "h1": "Hardcoded... To Self-Destruct",
+                "h2": "A game made in 48 hours\nTake control of an army of self-destructing robots\nand destroy the enemy nuclear arsenal"
+            },
+            {
+                "type": "image_text",
+                "direction": "left",
+                "image": "/img/hc3.png",
+                "h1": "You need to strategically utilize your robots",
+                "h2": "Use the explosion as a boost, or to get a weight off of a button"
+            },
+            {
+                "type": "image_text",
+                "direction": "right",
+                "image": "/img/hc1.png",
+                "h1": "The fate of the world is in your hands",
+                "h2": "The enemy is preparing to launch a nuclear strike\nYou must stop them at all costs"
+            }
+        ]
     }
 }
