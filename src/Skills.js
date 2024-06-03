@@ -480,6 +480,13 @@ function Skills() {
                 Object.entries(clouds).flatMap( ([cloud_name, cloud_data], id) => {
                     return Object.entries(cloud_data["skills"]).map( ([skill_name, skill_data], id) => {
                         let [x, y] = skill_data["pos"];
+                        let color = cloud_data["color"].slice();
+                        for (let i = 0; i < 3; i++) {
+                          color[i] = Math.min(255, color[i] + 150 * skill_data["level"]/5 - 75);
+                        }
+                        // change the green a bit by the x and the blue by the y
+                        color[1] = Math.min(255, color[1] + 0.05 * x);
+                        color[2] = Math.min(255, color[2] + 0.05 * y);
                         return (
                             <h3 
                               key={skill_name}
@@ -491,7 +498,7 @@ function Skills() {
                                 opacity: Math.max(1.0, 0.5),
                                 fontSize: `${0.8 *  skill_data["scale"]}em`,
                                 // color: "var(--text-color)",	
-                                color: `rgba(${cloud_data["color"][0]},${cloud_data["color"][1]},${cloud_data["color"][2]},1.0)`,
+                                color: `rgba(${color[0]},${color[1]},${color[2]},1.0)`,
                               }}
                               onClick={() => {
                                 if(selected_skill === skill_name) {

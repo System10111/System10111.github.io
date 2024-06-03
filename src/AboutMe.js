@@ -81,14 +81,12 @@ function AboutMeMusician()
       /> */}
       <h1>Creativity</h1>
       <p>
-        Music has always been a passion of mine, and I have been playing various instruments since I was a child. 
-        I am proficient in playing the guitar, piano, and drums, and I have experience composing and producing music using software such as Cubase and FL Studio. 
-        I have also worked on sound design for video games, using tools such as Wwise to create immersive audio experiences. 
-        I believe that music and sound are essential components of any creative project, and I enjoy exploring the ways in which they can enhance and the experience.
-        Art has always been a passion of mine, and I have been creating various forms of art since I was a child. 
-        I am proficient in drawing, painting, and digital art, and I have experience using software such as Photoshop and Illustrator to create stunning visuals. 
+        Music and art has always been a part of my life.
+        I've worked on sound design for video games, using tools such as Wwise to create immersive audio experiences. 
+        I've always tried to make the sound and art assets for any multimedia project I work on. 
+        I have experience using software such as Photoshop and Illustrator. 
         I have also worked on graphic design for websites and games, in different areas, such as UI, 3D modeling, texturing, VFX and more.
-        I am also very experienced in graphical shader programming, and I can use it to create stunning visual effects and animations.
+        I am also very experienced in graphical shader programming, and I can use it to create visual effects and animations.
       </p>
     </div>
   )
@@ -136,18 +134,24 @@ function AboutMe() {
             // [[148, 30, 28], [28, 148, 30], [30, 28, 148]] // dilute rgb
             // [[238, 143, 141], [141, 238, 143], [143, 141, 238]] // pastel rgb
             // [[225, 185, 101], [101, 225, 185], [185, 101, 225]] // dilute y/o lb/lg mg/pr
-            [[80, 80, 80], [66, 65, 117], [51, 121, 52]] // gray, d. blue, d. green
+            // [[80, 80, 80], [66, 65, 117], [51, 121, 52]] // gray, d. blue, d. green
+            [[[50, 50, 50], [70, 60, 60]], // gray - lighter gray
+            [[66, 65, 117], [100, 100, 150]], // dark blue - lighter blue
+            [[51, 121, 52], [100, 150, 100]]] // dark green - lighter green
             // first create border color - 20% darker, then convert to string with rgb
             .map((color) => ([
-              `rgb(${color[0]}, ${color[1]}, ${color[2]}, 0.98)`,
-              `rgb(${color[0] * 0.8}, ${color[1] * 0.8}, ${color[2] * 0.8})`]))
+              // `rgb(${color[0]}, ${color[1]}, ${color[2]}, 0.98)`,
+              `linear-gradient(45deg, 
+                rgb(${color[0][0]}, ${color[0][1]}, ${color[0][2]}, 0.98),
+                rgb(${color[1][0]}, ${color[1][1]}, ${color[1][2]}, 0.98))`,
+              `rgb(${color[0][0] * 0.8}, ${color[0][1] * 0.8}, ${color[0][2] * 0.8})`]))
             .map((color, i) => (
               <div className="aboutme-slide" key={i}
               style={{
                 transform: `rotate3d(0, 1, 0, ${180 - i * 120}deg) translate3d(0, 0, 1000px)`,
               }}>
                 <div className="aboutme-panel" 
-                  style={{backgroundColor: color[0], borderColor: color[1]}}
+                  style={{background: color[0], borderColor: color[1]}}
                 >
                   {[AboutMeProgrammer, AboutMeMusician, AboutMeArtist][i]()}
                   <div className="aboutme-panel-icon" style={{
