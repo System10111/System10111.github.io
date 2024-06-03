@@ -24,10 +24,39 @@
   pointer-events: none;
 }
 
-.aboutme-nav div {
+.aboutme-nav-part {
   flex: 1;
   height: 100%;
   pointer-events: none;
+  align-content: center;
+  opacity: 0.2;
+  transition: ease-in-out 0.5s;
+}
+
+.aboutme-nav-part:hover {
+  opacity: 1;
+}
+
+.aboutme-arrow {
+  width: 40%;
+  margin: auto;
+  align-content: center;
+  aspect-ratio: 1/1;
+  background-color: #00000099;
+  border-radius: 47%;
+  border: 3px solid #0000008c;
+  font-size: 3em;
+  color: white;
+  text-shadow: 0 0 3px black;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.aboutme-arrow:active {
+  background-color: #000000cc;
 }
 
 .aboutme-scene {
@@ -56,7 +85,7 @@
   background-position: center;
   background-image: radial-gradient(circle at center, #434a57 0%, #ffffff00 40% );
   transform-origin: center;
-  transform: perspective(5000px)  translate3d(0, 500px, -2000px) rotate3d(1, 0, 0, 85deg) scale(2.2);
+  transform: perspective(5000px)  translate3d(0, 500px, -3000px) rotate3d(1, 0, 0, 85deg) scale(1.5);
 }
 
 .aboutme-slider {

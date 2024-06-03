@@ -51,8 +51,8 @@ function AboutMeProgrammer()
 {
   return (
     <div className="aboutme-panel-div">
-      <div className="aboutme-pic"/>
-      <h1>A Rockstar Programmer</h1>
+      {/* <div className="aboutme-pic"/> */}
+      <h1>Programming Experience</h1>
       <p>
           As a programmer, I have a wealth of experience and skills that I have acquired over the years. 
           I have worked on various projects, from front-end and back-end web development to 
@@ -76,15 +76,19 @@ function AboutMeMusician()
 {
   return (
     <div className="aboutme-panel-div">
-      <div className="aboutme-pic"
+      {/* <div className="aboutme-pic"
         style={{float: "right"}}
-      />
-      <h1>A Programming Rockstar</h1>
+      /> */}
+      <h1>Creativity</h1>
       <p>
         Music has always been a passion of mine, and I have been playing various instruments since I was a child. 
         I am proficient in playing the guitar, piano, and drums, and I have experience composing and producing music using software such as Cubase and FL Studio. 
         I have also worked on sound design for video games, using tools such as Wwise to create immersive audio experiences. 
         I believe that music and sound are essential components of any creative project, and I enjoy exploring the ways in which they can enhance and the experience.
+        Art has always been a passion of mine, and I have been creating various forms of art since I was a child. 
+        I am proficient in drawing, painting, and digital art, and I have experience using software such as Photoshop and Illustrator to create stunning visuals. 
+        I have also worked on graphic design for websites and games, in different areas, such as UI, 3D modeling, texturing, VFX and more.
+        I am also very experienced in graphical shader programming, and I can use it to create stunning visual effects and animations.
       </p>
     </div>
   )
@@ -94,13 +98,21 @@ function AboutMeArtist()
 {
   return (
     <div className="aboutme-panel-div">
-      <div className="aboutme-pic"/>
-      <h1>A Creative Artist</h1>
-      <p>
-        Art has always been a passion of mine, and I have been creating various forms of art since I was a child. 
-        I am proficient in drawing, painting, and digital art, and I have experience using software such as Photoshop and Illustrator to create stunning visuals. 
-        I have also worked on graphic design for websites and games, in different areas, such as UI, 3D modeling, texturing, VFX and more.
-        I am also very experienced in graphical shader programming, and I can use it to create stunning visual effects and animations.
+      {/* <div className="aboutme-pic"/> */}
+      <h1>What I want to achieve</h1>
+      <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Duis porta nunc eu tortor tincidunt ullamcorper. 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Mauris sapien tortor, dictum quis velit at, venenatis ullamcorper dui. 
+        Sed tristique quis lectus eu laoreet. 
+        Interdum et malesuada fames ac ante ipsum primis in faucibus. 
+        Donec nec ante nulla. Nulla ultrices consequat est sed bibendum.
+        Suspendisse non enim enim. Mauris malesuada convallis nisl. 
+        Vestibulum rhoncus lobortis consequat. Aliquam erat volutpat. 
+        Phasellus eget suscipit odio. Maecenas in volutpat dui. 
+        Curabitur id risus sit amet massa aliquet ultricies nec quis tellus. 
+        Praesent bibendum turpis porttitor velit sagittis efficitur. 
+        Duis ac lorem eget eros ornare scelerisque in ut metus.
       </p>
     </div>
   )
@@ -122,8 +134,9 @@ function AboutMe() {
           >
             {
             // [[148, 30, 28], [28, 148, 30], [30, 28, 148]] // dilute rgb
-            [[238, 143, 141], [141, 238, 143], [143, 141, 238]] // pastel rgb
+            // [[238, 143, 141], [141, 238, 143], [143, 141, 238]] // pastel rgb
             // [[225, 185, 101], [101, 225, 185], [185, 101, 225]] // dilute y/o lb/lg mg/pr
+            [[80, 80, 80], [66, 65, 117], [51, 121, 52]] // gray, d. blue, d. green
             // first create border color - 20% darker, then convert to string with rgb
             .map((color) => ([
               `rgb(${color[0]}, ${color[1]}, ${color[2]}, 0.98)`,
@@ -148,9 +161,13 @@ function AboutMe() {
         </div>
 
         <div className="aboutme-nav">
-          <div style={{cursor:"pointer", pointerEvents: "all"}} onClick={() => setIndex((prevIndex) => prevIndex - 1)}></div>
-          <div style={{flex: "2"}}></div>
-          <div style={{cursor:"pointer", pointerEvents: "all"}} onClick={() => setIndex((prevIndex) => prevIndex + 1)}></div>
+          <div className="aboutme-nav-part" style={{cursor:"pointer", pointerEvents: "all"}} onClick={() => setIndex((prevIndex) => prevIndex - 1)}>
+            <div className="aboutme-arrow">&lt;</div>
+          </div>
+          <div className="aboutme-nav-part" style={{flex: "2"}}></div>
+          <div className="aboutme-nav-part" style={{cursor:"pointer", pointerEvents: "all"}} onClick={() => setIndex((prevIndex) => prevIndex + 1)}>
+            <div className="aboutme-arrow">&gt;</div>
+          </div>
         </div>
 
       </div>
